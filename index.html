@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Анкета персонажа Хогвартса</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#0b1020; --night2:#111a30;
+  --parch:#f0e5c9; --parch2:#e4d5ae; --parchEdge:#c9b586;
+  --ink:#38301f; --ink2:#5c5138;
+  --gold:#c9a227; --goldL:#e8c85a;
+  --wax:#8c1f28; --waxD:#5e1219;
+  --ok:#3f7d4e; --work:#a97f1d; --sent:#3b5f8f; --cancel:#8a3b3b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  background:
+    radial-gradient(1.5px 1.5px at 12% 18%, rgba(255,255,255,.5) 50%, transparent 51%),
+    radial-gradient(1px 1px at 78% 9%, rgba(255,255,255,.4) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 64% 32%, rgba(255,240,200,.35) 50%, transparent 51%),
+    radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,.3) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 88% 71%, rgba(255,255,255,.35) 50%, transparent 51%),
+    radial-gradient(1px 1px at 45% 88%, rgba(255,240,200,.3) 50%, transparent 51%),
+    radial-gradient(ellipse at 50% -10%, #1a2745 0%, var(--night) 55%);
+  background-color:var(--night);
+  color:var(--parch);
+  min-height:100%;
+  font-size:18px;
+}
+.wrap{max-width:880px;margin:0 auto;padding:22px 14px 70px}
+header.top{text-align:center;padding:26px 10px 8px}
+.crest{font-size:30px;letter-spacing:8px;color:var(--goldL);text-shadow:0 0 18px rgba(232,200,90,.4)}
+h1.site{font-weight:700;font-size:clamp(30px,5.4vw,46px);color:var(--goldL);letter-spacing:.03em;text-shadow:0 2px 14px rgba(201,162,39,.35)}
+.subtitle{font-style:italic;color:#cbbf9c;font-size:19px;margin-top:2px}
+.rule{width:220px;height:1px;margin:14px auto 0;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+.parch{
+  position:relative;color:var(--ink);
+  background:linear-gradient(160deg,#f5ecd4 0%,var(--parch) 45%,var(--parch2) 100%);
+  border:1px solid var(--parchEdge);
+  border-radius:8px;
+  box-shadow:0 1px 0 rgba(255,255,255,.35) inset, 0 14px 34px rgba(0,0,0,.55), 0 3px 8px rgba(0,0,0,.4);
+  padding:26px 26px 24px;
+  margin:22px 0;
+}
+.parch:before{content:"";position:absolute;inset:6px;border:1px solid rgba(120,98,55,.35);border-radius:5px;pointer-events:none}
+.parch h2{font-size:26px;font-weight:700;letter-spacing:.06em;color:#4a3a17;text-transform:uppercase}
+.parch h2 .n{color:var(--wax);font-style:italic;margin-right:8px;text-transform:none}
+.hint{color:var(--ink2);font-style:italic;font-size:16.5px;margin:4px 0 14px}
+.fl{display:block;font-weight:600;color:#4a3a17;margin:14px 0 5px;font-size:18px;letter-spacing:.02em}
+.in,.ta{
+  width:100%;font-family:inherit;font-size:18px;color:var(--ink);
+  background:rgba(255,252,240,.65);
+  border:1px solid #b7a375;border-radius:4px;padding:9px 12px;outline:none;
+  box-shadow:0 1px 2px rgba(90,70,30,.15) inset;
+}
+.in:focus,.ta:focus{border-color:#8c6d2c;box-shadow:0 0 0 3px rgba(201,162,39,.22)}
+.ta{resize:vertical;min-height:84px}
+.oth{max-width:360px;margin-top:8px;font-size:16.5px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 2px}
+.pill{
+  cursor:pointer;user-select:none;border:1px solid #a8935f;border-radius:20px;
+  padding:6px 15px;font-size:16.5px;color:#5a4a24;background:rgba(255,252,240,.5);
+  transition:all .15s;
+}
+.pill:hover{border-color:#7c5f1e}
+.pill.on{background:#4a3a17;color:#f3e8c8;border-color:#4a3a17;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+@media(max-width:620px){.row2{grid-template-columns:1fr}}
+
+.phbox{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.thumb{position:relative;width:92px;height:92px;border-radius:6px;overflow:hidden;border:2px solid #a8935f;box-shadow:0 3px 8px rgba(0,0,0,.3)}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb .x{position:absolute;top:2px;right:2px;width:22px;height:22px;border-radius:50%;background:rgba(60,20,20,.85);color:#f3e0c0;border:none;cursor:pointer;font-size:13px;line-height:1}
+.addph{
+  width:92px;height:92px;border:2px dashed #a8935f;border-radius:6px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;cursor:pointer;color:#7c6a3e;font-size:13.5px;text-align:center;gap:3px;
+  background:rgba(255,252,240,.35);
+}
+.addph:hover{border-color:#7c5f1e;color:#5a4a24}
+.addph .pl{font-size:24px;line-height:1}
+
+.btn{
+  display:inline-block;font-family:inherit;cursor:pointer;border-radius:5px;font-size:17.5px;font-weight:600;
+  padding:10px 22px;border:1px solid #8c6d2c;color:#3f3011;letter-spacing:.03em;
+  background:linear-gradient(180deg,#eddfb6,#d9c48c);box-shadow:0 3px 8px rgba(0,0,0,.3);
+  text-decoration:none;transition:transform .1s, box-shadow .15s;
+}
+.btn:hover{transform:translateY(-1px);box-shadow:0 5px 12px rgba(0,0,0,.35)}
+.btn:disabled{opacity:.5;cursor:default;transform:none}
+.btn.dark{background:linear-gradient(180deg,#26314f,#161f38);color:#e8dcb6;border-color:#3b4a72}
+.btn.gold{background:linear-gradient(180deg,#eecf6d,#c9a227);border-color:#a2811a;color:#3a2c05}
+.btn.ghost{background:transparent;border:1px solid #a8935f;color:#6b592d;box-shadow:none}
+.btn.danger{background:linear-gradient(180deg,#b04a52,#7e2830);border-color:#5e1219;color:#f7e3d8}
+.btn.sm{font-size:15.5px;padding:6px 14px}
+.seal{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  width:150px;height:150px;border-radius:50%;margin:6px auto;cursor:pointer;border:none;
+  font-family:inherit;font-size:19px;font-weight:700;letter-spacing:.04em;color:#f6dfc8;text-align:center;line-height:1.15;
+  background:radial-gradient(circle at 35% 30%, #b23a44, var(--wax) 55%, var(--waxD) 100%);
+  box-shadow:0 0 0 6px rgba(140,31,40,.25), 0 10px 24px rgba(0,0,0,.6), inset 0 2px 6px rgba(255,200,180,.35), inset 0 -6px 12px rgba(0,0,0,.4);
+  transition:transform .12s;
+}
+.seal:hover{transform:scale(1.04)}
+.seal:disabled{opacity:.6;transform:none;cursor:default}
+.seal small{font-weight:500;font-size:13px;font-style:italic;opacity:.85}
+
+.prog{display:flex;align-items:center;gap:12px;margin:20px 4px 0;color:#cbbf9c}
+.prog .bar{flex:1;height:7px;border-radius:6px;background:rgba(240,229,201,.15);overflow:hidden;border:1px solid rgba(201,162,39,.35)}
+.prog .fill{height:100%;background:linear-gradient(90deg,#a2811a,var(--goldL));box-shadow:0 0 10px rgba(232,200,90,.6)}
+.prog .lab{font-style:italic;font-size:16px;white-space:nowrap}
+.navrow{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:6px}
+
+.card-list{display:flex;flex-direction:column}
+.subrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:14px 4px;border-bottom:1px dashed #b7a375}
+.subrow:last-child{border-bottom:none}
+.subrow .who{flex:1;min-width:180px}
+.subrow .who b{font-size:20px;color:#4a3a17}
+.subrow .who .dt{display:block;font-size:15px;color:var(--ink2);font-style:italic}
+.badge{display:inline-block;padding:4px 13px;border-radius:14px;color:#fdf6e3;font-size:15px;letter-spacing:.03em}
+.badge.отправлена{background:var(--sent)}
+.badge.work{background:var(--work)}
+.badge.готова{background:var(--ok)}
+.badge.отменена{background:var(--cancel)}
+.cardflag{font-size:15px;color:var(--ink2)}
+.cardflag.yes{color:var(--ok);font-weight:700}
+
+.chat{background:rgba(255,252,240,.55);border:1px solid #b7a375;border-radius:6px;padding:12px;max-height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
+.msg{max-width:82%;padding:8px 13px;border-radius:10px;font-size:16.5px;line-height:1.35}
+.msg .mt{display:block;font-size:12.5px;color:rgba(60,48,17,.55);margin-top:3px;font-style:italic}
+.msg.user{align-self:flex-end;background:#dcebd8;border:1px solid #9fbb97}
+.msg.admin{align-self:flex-start;background:#e3d9f0;border:1px solid #b0a0cc}
+.msg.mine{align-self:flex-end;background:#f5e6bd;border:1px solid #cbb26a}
+.chatrow{display:flex;gap:8px;margin-top:10px}
+.chatrow .in{flex:1}
+
+.quote{font-family:'Caveat',cursive;font-size:26px;color:#4a3a17;text-align:center;margin:10px 0}
+.donate{
+  text-align:center;border:1px dashed #a8935f;border-radius:8px;padding:18px 16px;margin:18px 0;
+  background:rgba(255,248,225,.5);
+}
+.center{text-align:center}
+.mt{margin-top:14px}.mt8{margin-top:8px}.mt20{margin-top:20px}
+.small{font-size:15.5px;color:var(--ink2)}
+.linkbtn{background:none;border:none;font-family:inherit;font-size:16px;color:#9db3d9;cursor:pointer;text-decoration:underline;font-style:italic}
+.toast{
+  position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:120;
+  background:#2a2114;color:#f3e8c8;border:1px solid var(--gold);border-radius:8px;
+  padding:11px 22px;font-size:17px;box-shadow:0 8px 24px rgba(0,0,0,.6);opacity:0;transition:opacity .3s;pointer-events:none;max-width:90vw;text-align:center;
+}
+.toast.show{opacity:1}
+.friend{border:1px dashed #a8935f;border-radius:6px;padding:14px 16px;margin:12px 0;background:rgba(255,252,240,.4);position:relative}
+.friend .rm{position:absolute;top:8px;right:10px}
+.gallery{display:flex;flex-wrap:wrap;gap:14px;margin:8px 0 16px}
+.gallery figure{width:130px}
+.gallery img{width:130px;height:130px;object-fit:cover;border-radius:6px;border:2px solid #a8935f;display:block}
+.gallery figcaption{font-size:13.5px;color:var(--ink2);text-align:center;margin-top:4px}
+.gallery a{color:#5e4b1a;font-size:13px}
+.ansec{margin:14px 0;border-bottom:1px dashed #cbb98d;padding-bottom:12px}
+.ansec h3{font-size:19px;text-transform:uppercase;letter-spacing:.05em;color:#4a3a17}
+.ansec p{margin:4px 0;font-size:17.5px}
+.ansec p b{color:#5a4a24}
+select.sel{font-family:inherit;font-size:16px;padding:6px 10px;border:1px solid #b7a375;border-radius:4px;background:rgba(255,252,240,.7);color:var(--ink)}
+.cardimg{max-width:100%;border-radius:8px;border:3px solid var(--gold);box-shadow:0 10px 30px rgba(0,0,0,.5);display:block;margin:12px auto}
+.notice-dark{color:#cbbf9c;font-style:italic;text-align:center;font-size:16px;margin-top:8px}
+.tabs{display:flex;gap:0;justify-content:center;margin-bottom:8px}
+.tab{padding:9px 26px;cursor:pointer;border:1px solid #a8935f;font-size:18px;color:#6b592d;background:rgba(255,252,240,.35)}
+.tab:first-child{border-radius:6px 0 0 6px}
+.tab:last-child{border-radius:0 6px 6px 0;border-left:none}
+.tab.on{background:#4a3a17;color:#f3e8c8;border-color:#4a3a17}
+.authform{max-width:360px;margin:0 auto;text-align:left}
+.overlay{position:fixed;inset:0;background:rgba(5,8,18,.75);z-index:100;display:flex;align-items:flex-start;justify-content:center;padding:30px 12px;overflow-y:auto}
+.modal{max-width:720px;width:100%}
+.promptbox{width:100%;font-family:Georgia,serif;font-size:14.5px;min-height:300px;background:rgba(255,252,240,.75);border:1px solid #b7a375;border-radius:5px;padding:12px;color:var(--ink);white-space:pre-wrap}
+footer{ text-align:center;color:#7d8db0;font-style:italic;font-size:15px;margin-top:34px }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="crest">✦ ⚯͛ ✦</div>
+    <h1 class="site">Анкета персонажа Хогвартса</h1>
+    <div class="subtitle">заполните пергамент — и получите свою коллекционную карточку</div>
+    <div class="rule"></div>
+  </header>
+  <main id="app"><div class="notice-dark">Совиная почта летит… загрузка ✉️</div></main>
+  <footer>«Иногда, чтобы изменить мир, достаточно одного взмаха палочки»</footer>
+</div>
+<div id="modalHost"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================================
+   НАСТРОЙКИ АВТОРА
+   ===================================================================== */
+const ADMIN_PASS = "Alisha2026";
+const DONATE_URL = "https://www.sberbank.com/sms/pbpn?requisiteNumber=79168352565";
+const DONATE_PHRASE = "Если вы хотите просто поддержать автора или ускорить получение карточки, то принимаю любые донаты 💛";
+const READY_DAYS = 7; // ориентировочный срок готовности карточки
+
+const PROMPT_TEXT = `Ты — художник-иллюстратор, создающий коллекционные карточки персонажей вселенной Гарри Поттера. Создай ОДНО вертикальное изображение — коллекционную карточку персонажа Хогвартса (соотношение сторон 2:3, максимальная детализация, текст без орфографических ошибок, весь текст на русском языке).
+
+СТИЛЬ И АТМОСФЕРА
+— Винтажный коллаж-скрапбук: листы состаренного пергамента с рваными и обгоревшими краями, приколотые скрепками и подклеенные к тёмному фону (глубокий сине-чёрный или чёрный с лёгкой текстурой звёздного неба, мелкие звёздочки и руны).
+— Тёплое свечное освещение, атмосфера старинной библиотеки Хогвартса.
+— Декоративные элементы: сургучная печать на конверте, гусиное перо, старинный ключ, свечи, засушенные цветы и травы, кисти и краски, блокнот с рисунком замка, флакон зелья.
+— Заголовок-имя — крупной каллиграфией; цитаты — рукописным почерком на отдельных записках; названия разделов — печатными «архивными» буквами; основной текст — аккуратным печатным шрифтом.
+
+КОМПОЗИЦИЯ (сверху вниз)
+1. Шапка: крупное имя персонажа каллиграфией, под ним строка «N курс, Хогвартс», в углу — герб Хогвартса, рядом конверт с сургучной печатью.
+2. Слева — большой портрет персонажа в декоративной раме: персонаж в мантии своего факультета с гербом на груди и галстуком в цветах факультета, фон — свечи и книжные полки. ОЧЕНЬ ВАЖНО: используй приложенные фотографии и максимально сохрани портретное сходство (черты лица, причёску, цвет волос и глаз).
+3. Под портретом — записка с рукописной цитатой персонажа (придумай короткую цитату по его характеру из анкеты).
+4. Справа от портрета блоки: «ФАКУЛЬТЕТ» (каллиграфическое название + герб факультета + строка из 3–4 качеств факультета), «МОЯ ПАЛОЧКА» (детальный рисунок волшебной палочки + строка: дерево · сердцевина · длина · гибкость), «МОЙ ПАТРОНУС» (светящаяся серебристо-голубая полупрозрачная фигура патронуса + название + 1–2 строки о его символике).
+5. Ряд полароидных фото «МОИ ДРУЗЬЯ» с рукописными подписями-именами и маленькими символами (сердечко, звёздочка, луна). Если приложены фото друзей — используй их с сохранением сходства; если нет — нарисуй по описанию из анкеты.
+6. Слева — приколотое фото питомца с именем и короткой рукописной подписью (если питомец есть в анкете; используй фото питомца, если приложено).
+7. Средняя часть, несколько пергаментных блоков: «ЛЮБИМЫЕ ПРЕДМЕТЫ» (список со значками «+»), «ЛЮБИМОЕ МАГИЧЕСКОЕ СУЩЕСТВО» (гравюрная иллюстрация существа + 1–2 строки характера), «ЛЮБИМОЕ ВРЕМЯ ГОДА В ХОГВАРТСЕ» (название + мини-пейзаж замка в это время года + 2 строки описания), «ИСТОРИЯ С N КУРСА» (связный абзац из 4–6 предложений по личной истории из анкеты — перескажи её красиво от первого лица), «МОЯ СЕМЬЯ» (короткие строки о происхождении и близких), рядом — рисунок старинного ключа.
+8. Нижний ряд узких колонок: «МОИ ХОББИ» (магическая версия хобби из анкеты), «ЛЮБИМОЕ БЛЮДО И НАПИТОК» (с маленькими иллюстрациями), «КАК Я ОТДЫХАЮ В ХОГВАРТСЕ» (+ миниатюра любимого места), «РОМАНТИЧЕСКИЕ ОТНОШЕНИЯ» (деликатно, с рисунком сердечка), «ДОПОЛНИТЕЛЬНЫЕ СПОСОБНОСТИ» и «ДРУГОЕ» (страхи, мечты, важные детали).
+9. В самом низу — вторая рукописная цитата персонажа на отдельной записке.
+
+ПРАВИЛА РАБОТЫ С АНКЕТОЙ
+— Все факты бери СТРОГО из анкеты ниже. Ничего не искажай там, где данные указаны.
+— Если в анкете стоит «подобрать самостоятельно» (факультет, палочка, патронус и т. п.) — подбери сам, исходя из характера, увлечений и истории персонажа, и красиво впиши в карточку.
+— Обязательно учти пункт «Атмосфера карточки» и включи все элементы из пункта «Детали для оформления».
+— Тексты на карточке краткие и атмосферные: длинные ответы анкеты сокращай, сохраняя суть.
+— Возраст и курс персонажа должны совпадать с анкетой; внешность — с описанием и фото.
+
+АНКЕТА:
+[вставьте сюда скачанную анкету]`;
+
+/* =====================================================================
+   ХРАНИЛИЩЕ
+   ===================================================================== */
+const hasStorage = typeof window.storage !== "undefined";
+async function sg(k, shared=false){ try{ const r = await window.storage.get(k, shared); return r ? JSON.parse(r.value) : null; }catch(e){ return null; } }
+async function ss(k, v, shared=false){ try{ const r = await window.storage.set(k, JSON.stringify(v), shared); if(!r) toast("Не удалось сохранить данные"); return r; }catch(e){ toast("Ошибка сохранения"); return null; } }
+async function sd(k, shared=false){ try{ await window.storage.delete(k, shared); }catch(e){} }
+
+/* =====================================================================
+   УТИЛИТЫ
+   ===================================================================== */
+const $ = s => document.querySelector(s);
+const app = () => $("#app");
+function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function rid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,8); }
+function hashPw(s){ let h=5381; for(let i=0;i<s.length;i++){ h=((h<<5)+h+s.charCodeAt(i))|0; } return "h"+(h>>>0).toString(36)+s.length; }
+function fmtDT(ts){ const d=new Date(ts); const p=n=>String(n).padStart(2,"0"); return `${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()} ${p(d.getHours())}:${p(d.getMinutes())}`; }
+let toastT=null;
+function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),2600); }
+function scrollTop(){ window.scrollTo({top:0,behavior:"smooth"}); }
+// объединяет значение-«таблетку» и вписанный свой вариант
+function CV(...vals){
+  return vals.map(v=>Array.isArray(v)?v.filter(x=>x&&String(x).trim()).join(", "):v)
+             .filter(v=>v!=null&&String(v).trim()!=="").join(", ");
+}
+async function copyText(text){
+  try{ await navigator.clipboard.writeText(text); toast("Скопировано в буфер обмена"); }
+  catch(e){ const ta=document.createElement("textarea"); ta.value=text; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy"); toast("Скопировано");}catch(_){toast("Не удалось скопировать");} ta.remove(); }
+}
+function tryDownload(text, name){
+  try{
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(new Blob([text],{type:"text/plain;charset=utf-8"}));
+    a.download=name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+    toast("Файл отправлен на скачивание");
+  }catch(e){ toast("Скачивание заблокировано — воспользуйтесь копированием"); }
+}
+// окно с текстом анкеты: копирование работает всегда, скачивание — как бонус
+function showTextModal(title, text, filename){
+  const host=$("#modalHost");
+  host.innerHTML=`<div class="overlay" onclick="if(event.target===this)closeModal()">
+    <div class="parch modal">
+      <h2 style="font-size:22px">${esc(title)}</h2>
+      <p class="hint">Нажмите «Скопировать» и вставьте текст куда нужно (например, в ChatGPT). Кнопка «Скачать .txt» сохранит файл, если браузер разрешает скачивание.</p>
+      <textarea class="promptbox" id="modalText" readonly>${esc(text)}</textarea>
+      <div class="mt8" style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn gold" onclick="copyText(document.getElementById('modalText').value)">Скопировать</button>
+        <button class="btn dark" onclick='tryDownload(document.getElementById("modalText").value, ${JSON.stringify(filename)})'>Скачать .txt</button>
+        <button class="btn ghost" onclick="closeModal()">Закрыть</button>
+      </div>
+    </div>
+  </div>`;
+}
+function closeModal(){ $("#modalHost").innerHTML=""; }
+function compressImage(file, maxSide=900, q=0.8){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=()=>{ const img=new Image();
+      img.onload=()=>{ let {width:w,height:h}=img;
+        const k=Math.min(1, maxSide/Math.max(w,h)); w=Math.round(w*k); h=Math.round(h*k);
+        const c=document.createElement("canvas"); c.width=w; c.height=h;
+        c.getContext("2d").drawImage(img,0,0,w,h);
+        res(c.toDataURL("image/jpeg",q));
+      };
+      img.onerror=()=>rej(new Error("bad image")); img.src=r.result;
+    };
+    r.onerror=()=>rej(new Error("read fail")); r.readAsDataURL(file);
+  });
+}
+
+/* =====================================================================
+   СОСТОЯНИЕ
+   ===================================================================== */
+let session=null, draft=null, curStep=0, adminOK=false, authTab="login";
+const photoCache={};
+let saveTimer=null;
+function saveDraftSoon(){ clearTimeout(saveTimer); saveTimer=setTimeout(()=>{ if(draft) ss("draft",draft); },700); }
+
+function G(path){ if(!draft) return undefined; return path.split(".").reduce((o,k)=>o&&o[k], draft); }
+function U(path, val){
+  const ks=path.split("."); let o=draft;
+  for(let i=0;i<ks.length-1;i++){ if(o[ks[i]]==null) o[ks[i]]={}; o=o[ks[i]]; }
+  o[ks[ks.length-1]]=val; saveDraftSoon();
+}
+function TG(path, val){ // мультивыбор
+  let arr=G(path); if(!Array.isArray(arr)){ arr=[]; U(path,arr); }
+  const i=arr.indexOf(val); if(i>=0) arr.splice(i,1); else arr.push(val);
+  saveDraftSoon(); renderStep();
+}
+function RS(path, val){ // одиночный выбор с возможностью снять
+  U(path, G(path)===val ? "" : val); renderStep();
+}
+
+/* =====================================================================
+   ЭЛЕМЕНТЫ ФОРМ
+   ===================================================================== */
+function fi(label,path,ph=""){ return `<label class="fl">${label}</label><input class="in" value="${esc(G(path)||"")}" placeholder="${esc(ph)}" oninput="U('${path}',this.value)">`; }
+function fa(label,path,ph="",rows=3){ return `<label class="fl">${label}</label><textarea class="ta" rows="${rows}" placeholder="${esc(ph)}" oninput="U('${path}',this.value)">${esc(G(path)||"")}</textarea>`; }
+function fr(path,opts){
+  return `<div class="pills">`+opts.map(o=>`<div class="pill ${G(path)===o?"on":""}" onclick="RS('${path}','${esc(o)}')">${esc(o)}</div>`).join("")+`</div>`;
+}
+function fc(path,opts){
+  const arr=G(path)||[];
+  return `<div class="pills">`+opts.map(o=>`<div class="pill ${arr.includes(o)?"on":""}" onclick="TG('${path}','${esc(o)}')">${esc(o)}</div>`).join("")+`</div>`;
+}
+// одиночный выбор + поле «свой вариант» (хранится в path+"O")
+function frO(label,path,opts,ph="или впишите свой вариант…"){
+  return `<label class="fl">${label}</label>${fr(path,opts)}
+  <input class="in oth" placeholder="${esc(ph)}" value="${esc(G(path+"O")||"")}" oninput="U('${path}O',this.value)">`;
+}
+function phField(label,slot,max,hint=""){
+  return `<label class="fl">${label}</label>${hint?`<div class="hint" style="margin:0 0 6px">${hint}</div>`:""}<div class="phbox" id="ph_${slot}"></div>`;
+}
+async function renderPhBox(slot,max){
+  const box=document.getElementById("ph_"+slot); if(!box) return;
+  if(!draft.ph) draft.ph={};
+  const keys=draft.ph[slot]||[];
+  let html="";
+  for(let i=0;i<keys.length;i++){
+    html+=`<div class="thumb"><img id="im_${slot}_${i}" alt="фото"><button class="x" title="Удалить" onclick="delPhoto('${slot}',${i})">✕</button></div>`;
+  }
+  if(keys.length<max){
+    html+=`<label class="addph"><span class="pl">＋</span>фото<input type="file" accept="image/*" ${max-keys.length>1?"multiple":""} hidden onchange="addPhoto(event,'${slot}',${max})"></label>`;
+  }
+  box.innerHTML=html;
+  for(let i=0;i<keys.length;i++){
+    const k=keys[i], img=document.getElementById(`im_${slot}_${i}`);
+    if(photoCache[k]){ img.src=photoCache[k]; }
+    else{ sg(k).then(v=>{ if(v&&v.data){ photoCache[k]=v.data; const el=document.getElementById(`im_${slot}_${i}`); if(el) el.src=v.data; } }); }
+  }
+}
+async function addPhoto(ev,slot,max){
+  const files=[...ev.target.files]; if(!files.length) return;
+  if(!draft.ph) draft.ph={};
+  if(!draft.ph[slot]) draft.ph[slot]=[];
+  toast("Загружаем фото…");
+  for(const f of files){
+    if(draft.ph[slot].length>=max) break;
+    try{
+      const data=await compressImage(f);
+      const key="dph_"+rid();
+      const ok=await ss(key,{data});
+      if(ok!==null){ photoCache[key]=data; draft.ph[slot].push(key); }
+    }catch(e){ toast("Не удалось обработать фото"); }
+  }
+  saveDraftSoon(); renderPhBox(slot,max);
+}
+async function delPhoto(slot,i){
+  const key=draft.ph[slot][i];
+  draft.ph[slot].splice(i,1); saveDraftSoon();
+  sd(key); delete photoCache[key];
+  renderStep();
+}
+
+/* =====================================================================
+   ВАРИАНТЫ ДЛЯ ВЫБОРА
+   ===================================================================== */
+const GENDERS=["Мужской","Женский"];
+const HAIR=["Русые","Каштановые","Тёмно-каштановые","Чёрные","Рыжие","Светлые","Пепельные","Медные"];
+const EYES=["Карие","Зелёные","Голубые","Серые","Серо-зелёные","Ореховые","Тёмные","Янтарные"];
+const BUILDS=["Хрупкое","Стройное","Среднее","Спортивное","Крепкое","Миниатюрное","Высокое и худощавое"];
+const VIBES=["Академическая","Таинственная","Романтическая","Приключенческая","Аристократическая","Тёмная","Уютная"];
+const FACS=["Гриффиндор","Пуффендуй","Когтевран","Слизерин","Не знаю (подобрать самостоятельно)"];
+const WOODS=["Орех","Дуб","Остролист","Ива","Вишня","Виноградная лоза","Ель","Бузина","Боярышник","Ясень","Красное дерево","Акация"];
+const CORES=["Перо феникса","Волос единорога","Сердечная жила дракона","Волос фестрала","Ус кельпи","Перо гиппогрифа"];
+const LENGTHS=["9¾ дюйма","10¼ дюйма","11 дюймов","11¼ дюйма","12 дюймов","12½ дюймов","13 дюймов","14 дюймов"];
+const FLEXES=["Гибкая","Упругая","Жёсткая","Неподатливая","Хлёсткая","Податливая","Капризная"];
+const PATRONUSES=["Лиса","Голубь","Олень","Лань","Волк","Кот","Выдра","Заяц","Сова","Ворон","Феникс","Дракон","Единорог","Лебедь","Рысь","Дельфин","Медведь","Конь"];
+const CREATURES=["Гиппогриф","Нюхлер","Фестрал","Феникс","Дракон","Единорог","Книззл","Лечурка","Пикси","Домовой эльф","Взрывопотам","Болтрушайка","Гриндилоу","Русалки Чёрного озера"];
+const SUBJ=["Заклинания","Зельеварение","Травология","Уход за магическими существами","Трансфигурация","История магии","Нумерология","Древние руны","Астрономия","Полёты","Защита от тёмных искусств","Прорицания"];
+const FOODS=["Пастуший пирог","Тыквенные пирожки","Жареная курица с картофелем","Йоркширский пудинг","Шоколадные лягушки","Всевкусные драже Берти Боттс","Патока с мороженым","Праздничный пир в Большом зале"];
+const DRINKS=["Сливочное пиво","Тыквенный сок","Шоколадное пиво","Горячий шоколад","Травяной чай","Чай с мятой и мёдом"];
+const PLACES=["Гостиная факультета","Библиотека","Астрономическая башня","Выручай-комната","Берег Чёрного озера","Теплицы","Совятня","Большой зал","Кухня Хогвартса","Квиддичное поле"];
+const ABIL=["Легилименция","Окклюменция","Анимагия","Метаморфомагия","Парселтанг","Дар прорицания","Невербальная магия","Исключительная память","Редкий талант к чарам","Способность понимать магических существ"];
+const SEASONS=["Весна","Лето","Осень","Зима"];
+const KINMAGES=["Мерлин","Моргана","Гэндальф","Геральт из Ривии","Альбус Дамблдор","Северус Снегг","Минерва Макгонагалл","Гарри Поттер","Луна Лавгуд","Ньют Саламандер","Николас Фламель","Годрик Гриффиндор","Салазар Слизерин","Ровена Когтевран","Хельга Пуффендуй","Баба-яга","Кощей Бессмертный","Волан-де-Морт (тс-с!)","Саруман"];
+const RHOBBIES=["Плавание","Спортзал","Бег","Музыкальный инструмент","Пение","Рисование","Танцы","Вязание и рукоделие","Шахматы","Видеоигры","Чтение","Фотография","Готовка","Настольные игры"];
+const MHOBBIES=["Квиддич","Дуэльный клуб","Плюй-камни","Волшебные шахматы","Жабий хор","Отряд Дамблдора","Коллекционные карточки от шоколадных лягушек","Подрывной дурак","Клуб зельеваров","Живопись волшебных картин","Гадания и прорицания","Полночные вылазки по замку"];
+const RESTS=["В Хогсмид по магазинам","В бар «Три метлы»","В Хогсмид на свиданку","Болтаю с привидениями","Гуляю у Запретного леса","Кушаю в Большом зале","Готовлю розыгрыш","Разгадываю загадки замка","Читаю в библиотеке","Играю в квиддич","Кормлю гигантского кальмара","Дремлю у камина в гостиной"];
+const HOOKS=["Потайная комната с забытыми картинами","Старинный артефакт сам выбрал меня","Загадка Запретного леса","Спасение друга из беды","Школьный турнир","Ночная вылазка по замку","Зашифрованное письмо из прошлого","Призрак попросил о помощи","Запретная книга из закрытой секции","Тайный клуб по интересам","Загадка Карты Мародёров","Романтическая история"];
+const CARDSTYLES=["Как страница из архива Хогвартса","Как досье Министерства Магии","Как коллекционная карточка персонажа","Как страница из старинной книги","Как запись в школьном альбоме"];
+const DETAILS=["Герб Хогвартса","Герб факультета","Патронус","Волшебная палочка","Карта Мародёров","Амортенция","Учебники","Метла","Питомец","Любимое магическое существо","Маховик времени","Золотой снитч","Распределяющая шляпа","Котёл с зельем","Письмо из Хогвартса","Сова с письмом","Свечи","Перо и чернильница","Летающие ключи","Мантия-невидимка","Вредноскоп","Омут памяти","Шоколадная лягушка"];
+
+/* =====================================================================
+   ШАГИ АНКЕТЫ
+   ===================================================================== */
+const STEPS=[
+{ t:"Основная информация", n:1, h:()=>`
+  ${fi("Имя персонажа *","name","Например: Алина")}
+  <div class="row2">${fi("Возраст","age","16")}${fi("Курс в Хогвартсе","course","5 курс")}</div>
+  <label class="fl">Пол</label>
+  ${fr("gender",GENDERS)}
+  ${phField("Фотографии для карточки (до 3)","main",3,"По этим фото будет нарисован портрет персонажа — выбирайте чёткие фото лица.")}
+`, after:()=>renderPhBox("main",3) },
+
+{ t:"Внешность", n:2, h:()=>`
+  <div class="hint">Опишите себя или персонажа — выберите вариант или впишите свой.</div>
+  ${frO("Цвет волос","hair",HAIR)}
+  ${frO("Цвет глаз","eyes",EYES)}
+  ${frO("Телосложение","build",BUILDS)}
+  ${fi("Рост","height","например: 165 см")}
+  ${fi("Особые черты внешности","features","веснушки, шрам, очки…")}
+  ${fi("Стиль одежды","style")}
+  <label class="fl">Какая атмосфера вам ближе? (можно несколько)</label>
+  ${fc("vibe",VIBES)}
+  <input class="in oth" placeholder="или свой вариант атмосферы…" value="${esc(G("vibeO")||"")}" oninput="U('vibeO',this.value)">
+`},
+
+{ t:"Факультет", n:3, h:()=>`
+  <label class="fl">Какой факультет вам нравится?</label>
+  ${fr("faculty",FACS)}
+  ${fa("Почему именно он?","facultyWhy")}
+`},
+
+{ t:"Палочка", n:4, h:()=>`
+  <label class="fl">Соберите свою палочку — или доверьте подбор</label>
+  ${fr("wandChoice",["Подобрать самостоятельно","Выберу сам(а)"])}
+  ${G("wandChoice")!=="Подобрать самостоятельно"?`
+    ${frO("Дерево","wandWood",WOODS)}
+    ${frO("Сердцевина","wandCore",CORES)}
+    ${frO("Длина","wandLen",LENGTHS)}
+    ${frO("Гибкость","wandFlex",FLEXES)}
+  `:`<div class="hint mt">Хорошо — палочка сама выберет волшебника ✨</div>`}
+`},
+
+{ t:"Патронус", n:5, h:()=>`
+  ${fr("patronusChoice",["Подобрать самостоятельно","Назову свой"])}
+  ${G("patronusChoice")!=="Подобрать самостоятельно"?`
+    ${frO("Мой патронус","patronus",PATRONUSES)}
+    ${fa("Почему именно он?","patronusWhy")}`:`<div class="hint mt">Патронус подберём по вашему характеру.</div>`}
+`},
+
+{ t:"Любимое магическое существо", n:6, h:()=>`
+  <div class="hint">Можно выбрать каноническое или придумать своё.</div>
+  ${frO("Существо","creature",CREATURES,"или придумайте своё существо…")}
+  ${fa("Почему?","creatureWhy")}
+`},
+
+{ t:"Питомцы", n:7, h:()=>`
+  <label class="fl">Есть ли у вас реальные питомцы?</label>
+  ${fr("hasPet",["Да","Нет"])}
+  ${G("hasPet")==="Да"?`
+    <div class="row2">${fi("Имя","petName")}${fi("Вид","petKind","кот, попугай, собака…")}</div>
+    ${phField("Фото питомца (до 2)","pet",2)}
+    <label class="fl">Хотите перенести питомца в магический мир?</label>
+    ${fr("petMagic",["Да","Нет"])}
+    ${G("petMagic")==="Да"?fa("Кем он будет в мире Гарри Поттера?","petMagicWho","например: книззл, почтовая сова, фамильяр…"):""}
+  `:""}
+`, after:()=>{ if(G("hasPet")==="Да") renderPhBox("pet",2); } },
+
+{ t:"Семья", n:8, h:()=>`
+  <label class="fl">Ваше происхождение</label>
+  ${fr("origin",["Маглорождённый(ая)","Полукровка","Чистокровный(ая)"])}
+  ${fi("Отец","family.father","кто он, чем занимается")}
+  ${fi("Мать","family.mother")}
+  ${fi("Братья / сёстры","family.siblings")}
+  <label class="fl">Родство с известными магами (можно несколько)</label>
+  ${fc("kinMages",KINMAGES)}
+  <input class="in oth" placeholder="или впишите своего знаменитого предка…" value="${esc(G("kinMagesO")||"")}" oninput="U('kinMagesO',this.value)">
+`},
+
+{ t:"Друзья", n:9, h:()=>{
+  const list=G("friends")||[];
+  let html=`<div class="hint">Кого добавить на карточку? Друзья появятся в ряду полароидных фото.</div>`;
+  list.forEach((f,i)=>{
+    html+=`<div class="friend">
+      <button class="btn ghost sm rm" onclick="rmFriend(${i})">Убрать</button>
+      <label class="fl" style="margin-top:0">Друг ${i+1} — имя</label>
+      <input class="in" value="${esc(f.name||"")}" oninput="U('friends.${i}.name',this.value)">
+      ${fa("Краткое описание","friends."+i+".desc","характер, факультет, чем дорог…",2)}
+      ${phField("Фото (до 1)","f_"+f.fid,1)}
+    </div>`;
+  });
+  html+=`<button class="btn ghost mt" onclick="addFriend()">＋ Добавить друга</button>`;
+  return html;
+}, after:()=>{ (G("friends")||[]).forEach(f=>renderPhBox("f_"+f.fid,1)); } },
+
+{ t:"Романтическая линия", n:10, h:()=>`
+  ${fr("romance",["Нет отношений","Есть отношения","Всё сложно"])}
+  ${G("romance")&&G("romance")!=="Нет отношений"?`
+    ${fa("Опишите","romanceDesc")}
+    ${fi("Кого добавить в карточку?","romanceWho","имя")}
+    ${phField("Фото (до 1)","love",1)}
+  `:""}
+`, after:()=>{ if(G("romance")&&G("romance")!=="Нет отношений") renderPhBox("love",1); } },
+
+{ t:"Учёба и увлечения", n:11, h:()=>`
+  <label class="fl">Любимые предметы (выберите любые)</label>
+  ${fc("subjects",SUBJ)}
+  <input class="in oth" placeholder="другие предметы…" value="${esc(G("subjectsO")||"")}" oninput="U('subjectsO',this.value)">
+  <label class="fl">Чем вы увлекаетесь в реальной жизни? (можно несколько)</label>
+  ${fc("hobbies",RHOBBIES)}
+  <input class="in oth" placeholder="или впишите своё увлечение…" value="${esc(G("hobbiesO")||"")}" oninput="U('hobbiesO',this.value)">
+  <label class="fl">Выберите магическое хобби (можно несколько)</label>
+  ${fc("magicHobby",MHOBBIES)}
+  <input class="in oth" placeholder="или придумайте своё магическое хобби…" value="${esc(G("magicHobbyO")||"")}" oninput="U('magicHobbyO',this.value)">
+  ${frO("Любимая еда","food",FOODS,"или своё блюдо…")}
+  ${frO("Любимый напиток","drink",DRINKS,"или свой напиток…")}
+`},
+
+{ t:"Жизнь в Хогвартсе", n:12, h:()=>`
+  <label class="fl">Что вы делаете после занятий? (можно несколько)</label>
+  ${fc("rest",RESTS)}
+  <input class="in oth" placeholder="или впишите своё…" value="${esc(G("restO")||"")}" oninput="U('restO',this.value)">
+  ${frO("Любимое место в замке","place",PLACES,"или своё место…")}
+  <label class="fl">Дополнительные магические способности (не обязательно)</label>
+  ${fc("abilities",ABIL)}
+  <input class="in oth" placeholder="другое…" value="${esc(G("abilitiesO")||"")}" oninput="U('abilitiesO',this.value)">
+  <label class="fl">Любимое время года в Хогвартсе</label>
+  ${fr("season",SEASONS)}
+  ${fa("Почему?","seasonWhy","",2)}
+`},
+
+{ t:"Личная история", n:13, h:()=>`
+  <div class="hint">Событие, которое обязательно должно попасть в биографию персонажа. Выберите готовую завязку приключения — или опишите свою.</div>
+  <label class="fl">Завязка приключения</label>
+  ${fr("storyHook",HOOKS)}
+  ${fa("Детали истории (что произошло, кто участвовал, чем закончилось)","story","",5)}
+`},
+
+{ t:"Оформление карточки", n:14, h:()=>`
+  <label class="fl">Какая карточка должна получиться?</label>
+  ${fr("cardStyle",CARDSTYLES)}
+  <input class="in oth" placeholder="или свой вариант…" value="${esc(G("cardStyleO")||"")}" oninput="U('cardStyleO',this.value)">
+  <label class="fl">Магические вещицы на карточке (выберите любые)</label>
+  ${fc("details",DETAILS)}
+  ${fi("Особые предметы","detailsSpecial","что-то личное и важное")}
+`},
+
+{ t:"Проверка и отправка", n:15, h:()=>`
+  <div class="quote">«Не сила делает мага великим, а выбор, который он делает»</div>
+  <div class="hint center">Проверьте анкету — кнопками «Назад» можно вернуться к любому шагу. После отправки анкета попадёт к автору.</div>
+  ${fa("Пожелания к карточке","wishes","цвета, настроение, особые просьбы…",3)}
+  <div class="center mt20">
+    <button class="seal" id="sealBtn" onclick="submitDraft()">Отправить<br>анкету<small>сургучная печать</small></button>
+  </div>
+`},
+];
+
+function addFriend(){ if(!draft.friends) draft.friends=[]; draft.friends.push({fid:rid(),name:"",desc:""}); saveDraftSoon(); renderStep(); }
+async function rmFriend(i){
+  const f=draft.friends[i];
+  const keys=(draft.ph&&draft.ph["f_"+f.fid])||[];
+  keys.forEach(k=>{sd(k); delete photoCache[k];});
+  if(draft.ph) delete draft.ph["f_"+f.fid];
+  draft.friends.splice(i,1); saveDraftSoon(); renderStep();
+}
+
+function renderStep(){
+  const s=STEPS[curStep], N=STEPS.length;
+  app().innerHTML=`
+    <div class="prog">
+      <span class="lab">Шаг ${curStep+1} из ${N}</span>
+      <div class="bar"><div class="fill" style="width:${Math.round((curStep+1)/N*100)}%"></div></div>
+      <button class="linkbtn" onclick="goCabinet()">в кабинет</button>
+    </div>
+    <div class="parch">
+      <h2><span class="n">${s.n}.</span>${s.t}</h2>
+      ${s.h()}
+      <div class="navrow mt20">
+        <button class="btn ghost" ${curStep===0?"disabled":""} onclick="stepTo(${curStep-1})">← Назад</button>
+        ${curStep<N-1?`<button class="btn dark" onclick="stepTo(${curStep+1})">Далее →</button>`:`<span></span>`}
+      </div>
+    </div>`;
+  if(s.after) s.after();
+}
+function stepTo(i){ curStep=Math.max(0,Math.min(STEPS.length-1,i)); if(draft) ss("draft",draft); renderStep(); scrollTop(); }
+
+/* =====================================================================
+   ОТПРАВКА
+   ===================================================================== */
+async function submitDraft(){
+  if(!draft.name || !draft.name.trim()){ toast("Укажите имя персонажа (шаг 1)"); stepTo(0); return; }
+  const btn=$("#sealBtn"); btn.disabled=true; btn.innerHTML="Сова летит…";
+  try{
+    const id="a"+rid();
+    const photos=[]; let n=0;
+    const ph=draft.ph||{};
+    for(const slot of Object.keys(ph)){
+      for(const k of ph[slot]){
+        const v=photoCache[k]?{data:photoCache[k]}:await sg(k);
+        if(v&&v.data){
+          const nk=`ph_${id}_${n++}`;
+          let label="Фото";
+          if(slot==="main") label="Фото персонажа";
+          else if(slot==="pet") label="Питомец"+(draft.petName?" — "+draft.petName:"");
+          else if(slot==="love") label="Романтическая линия"+(draft.romanceWho?" — "+draft.romanceWho:"");
+          else if(slot.startsWith("f_")){
+            const fr=(draft.friends||[]).find(f=>"f_"+f.fid===slot);
+            label="Друг"+(fr&&fr.name?" — "+fr.name:"");
+          }
+          await ss(nk,{slot,label,data:v.data},true);
+          photos.push({key:nk,slot,label});
+        }
+      }
+    }
+    const data=JSON.parse(JSON.stringify(draft)); delete data.ph; delete data._uid;
+    await ss("sub_"+id,{data,photos,uid:session.uid,userName:session.name,ts:Date.now()},true);
+    const idx=(await sg("idx",true))||[];
+    idx.push({id,uid:session.uid,user:session.name,char:draft.name.trim(),status:"отправлена",ts:Date.now(),card:false});
+    await ss("idx",idx,true);
+    const acc=(await sg("acc_"+session.uid,true))||{name:session.name,subs:[]};
+    acc.subs=acc.subs||[]; acc.subs.push(id);
+    await ss("acc_"+session.uid,acc,true);
+    for(const slot of Object.keys(ph)) ph[slot].forEach(k=>sd(k));
+    await sd("draft"); draft=null;
+    renderSuccess(id);
+  }catch(e){ toast("Что-то пошло не так, попробуйте ещё раз"); btn.disabled=false; btn.innerHTML="Отправить<br>анкету<small>сургучная печать</small>"; }
+}
+// страница после отправки: срок, поддержка автора, сообщение автору
+function renderSuccess(id){
+  app().innerHTML=`
+    <div class="parch">
+      <h2 style="text-align:center;justify-content:center">Ваша анкета отправлена! 🕊️</h2>
+      <div class="quote">«Совы уже в пути…»</div>
+      <p class="center" style="font-size:19px">Ваша карточка ориентировочно будет готова <b>в течение ${READY_DAYS} дней</b>.<br>Следите за статусом в личном кабинете — когда карточка будет готова, вы сможете её скачать.</p>
+      <div class="donate">
+        <div style="font-size:19px">${DONATE_PHRASE}</div>
+        <a class="btn gold mt" href="${DONATE_URL}" target="_blank" rel="noopener">Поддержать автора</a>
+      </div>
+      <h2 style="font-size:22px">Сообщение автору</h2>
+      <p class="hint" style="margin-bottom:6px">Можно написать пожелание, вопрос или просто доброе слово — автор ответит здесь же.</p>
+      <div class="chat" id="chatbox"></div>
+      <div class="chatrow">
+        <input class="in" id="chatinp" placeholder="Напишите автору…" onkeydown="if(event.key==='Enter')sendMsg('${id}','user')">
+        <button class="btn dark" onclick="sendMsg('${id}','user')">Отправить</button>
+      </div>
+      <div class="center mt20"><button class="btn dark" onclick="goCabinet()">В личный кабинет</button></div>
+    </div>`;
+  renderChat(id,"user");
+  scrollTop();
+}
+
+/* =====================================================================
+   ТЕКСТ АНКЕТЫ — только заполненные пункты
+   ===================================================================== */
+function buildText(sub, meta){
+  const d=sub.data, out=[];
+  out.push("АНКЕТА ДЛЯ СОЗДАНИЯ ПЕРСОНАЖА ХОГВАРТСА");
+  if(meta) out.push("Отправлена: "+fmtDT(meta.ts)+" | Пользователь: "+(meta.user||""));
+  const ln=(lab,val)=>{ const v=(val==null)?"":String(val).trim(); return v?lab+": "+v:null; };
+  const sec=(title,lines)=>{ const ls=lines.filter(Boolean); if(ls.length){ out.push("","── "+title.toUpperCase()+" ──",...ls); } };
+  const cnt=slot=>(sub.photos||[]).filter(p=>p.slot===slot).length;
+
+  sec("1. Основная информация",[
+    ln("Имя персонажа",d.name), ln("Возраст",d.age), ln("Курс",d.course), ln("Пол",d.gender),
+    cnt("main")?ln("Фото персонажа приложено (шт.)",cnt("main")):null,
+  ]);
+  sec("2. Внешность",[
+    ln("Цвет волос",CV(d.hair,d.hairO)), ln("Цвет глаз",CV(d.eyes,d.eyesO)),
+    ln("Телосложение",CV(d.build,d.buildO)), ln("Рост",d.height),
+    ln("Особые черты",d.features), ln("Стиль одежды",d.style),
+    ln("Атмосфера",CV(d.vibe,d.vibeO)),
+  ]);
+  sec("3. Факультет",[ ln("Факультет",d.faculty), ln("Почему",d.facultyWhy) ]);
+  const wandLines=[ ln("Выбор",d.wandChoice) ];
+  if(d.wandChoice==="Выберу сам(а)") wandLines.push(
+    ln("Дерево",CV(d.wandWood,d.wandWoodO)), ln("Сердцевина",CV(d.wandCore,d.wandCoreO)),
+    ln("Длина",CV(d.wandLen,d.wandLenO)), ln("Гибкость",CV(d.wandFlex,d.wandFlexO)));
+  sec("4. Палочка",wandLines);
+  sec("5. Патронус",[ ln("Выбор",d.patronusChoice), ln("Патронус",CV(d.patronus,d.patronusO)), ln("Почему",d.patronusWhy) ]);
+  sec("6. Любимое магическое существо",[ ln("Существо",CV(d.creature,d.creatureO)), ln("Почему",d.creatureWhy) ]);
+  const petLines=[ ln("Есть питомец",d.hasPet) ];
+  if(d.hasPet==="Да") petLines.push(
+    ln("Имя",d.petName), ln("Вид",d.petKind),
+    cnt("pet")?ln("Фото питомца приложено (шт.)",cnt("pet")):null,
+    ln("Перенести в магический мир",d.petMagic), ln("Кем будет",d.petMagicWho));
+  sec("7. Питомцы",petLines);
+  const f=d.family||{};
+  sec("8. Семья",[ ln("Происхождение",d.origin), ln("Отец",f.father), ln("Мать",f.mother),
+    ln("Братья/сёстры",f.siblings), ln("Родство с известными магами",CV(d.kinMages,d.kinMagesO)), ln("Маги среди родственников",f.mages) ]);
+  sec("9. Друзья",(d.friends||[]).map((fr,i)=>{
+    if(!(fr.name||fr.desc)) return null;
+    const nph=cnt("f_"+fr.fid);
+    return `Друг ${i+1}: ${fr.name||"—"}${fr.desc?" — "+fr.desc:""}${nph?" (фото: "+nph+" шт.)":""}`;
+  }));
+  sec("10. Романтическая линия",[ ln("Статус",d.romance), ln("Описание",d.romanceDesc),
+    ln("Кого добавить",d.romanceWho), cnt("love")?ln("Фото приложено (шт.)",cnt("love")):null ]);
+  sec("11. Любимые предметы",[ ln("Предметы",CV(d.subjects,d.subjectsO)) ]);
+  sec("12. Хобби",[ ln("В реальной жизни",CV(d.hobbies,d.hobbiesO)), ln("Магическое хобби",CV(d.magicHobby,d.magicHobbyO,d.hobbiesMagic)) ]);
+  sec("13. Любимая еда и напиток",[ ln("Еда",CV(d.food,d.foodO)), ln("Напиток",CV(d.drink,d.drinkO)) ]);
+  sec("14. Отдых в Хогвартсе",[ ln("После занятий",CV(d.rest,d.restO)), ln("Любимое место",CV(d.place,d.placeO)) ]);
+  sec("15. Дополнительные способности",[ ln("Способности",CV(d.abilities,d.abilitiesO)) ]);
+  sec("16. Любимое время года",[ ln("Время года",d.season), ln("Почему",d.seasonWhy) ]);
+  sec("17. Личная история",[ ln("Завязка",d.storyHook), ln("История",d.story) ]);
+  sec("18. Атмосфера карточки",[ ln("Стиль",CV(d.cardStyle,d.cardStyleO)) ]);
+  sec("19. Детали оформления",[ ln("Обязательные элементы",CV(d.details)), ln("Особые предметы",d.detailsSpecial) ]);
+  sec("20. Что ещё важно",[ ln("Детали",d.extra) ]);
+  sec("Пожелания",[ ln("Пожелания к карточке",d.wishes) ]);
+  return out.join("\n");
+}
+
+/* =====================================================================
+   РЕГИСТРАЦИЯ И ВХОД
+   ===================================================================== */
+function renderAuth(){
+  const isLogin=authTab==="login";
+  app().innerHTML=`<div class="parch center">
+    <div class="tabs">
+      <div class="tab ${isLogin?"on":""}" onclick="authTab='login';renderAuth()">Вход</div>
+      <div class="tab ${!isLogin?"on":""}" onclick="authTab='reg';renderAuth()">Регистрация</div>
+    </div>
+    <div class="authform">
+      <label class="fl">Имя (логин)</label>
+      <input class="in" id="aName" placeholder="Ваше имя или ник" onkeydown="if(event.key==='Enter')document.getElementById('aPass').focus()">
+      <label class="fl">Пароль</label>
+      <input class="in" id="aPass" type="password" placeholder="${isLogin?"Ваш пароль":"Придумайте пароль"}" onkeydown="if(event.key==='Enter')${isLogin?"doLogin()":"doRegister()"}">
+      ${isLogin?"":`<p class="small mt8" style="font-style:italic">Не используйте пароль от почты или банка — это простая защита кабинета внутри приложения.</p>`}
+    </div>
+    <div class="mt20">
+      ${isLogin
+        ?`<button class="btn gold" onclick="doLogin()">Войти</button>`
+        :`<button class="btn gold" onclick="doRegister()">Создать кабинет</button>`}
+    </div>
+    <div class="mt20"><button class="linkbtn" onclick="renderAdminLogin()">Вход для автора</button></div>
+  </div>`;
+}
+async function doRegister(){
+  const name=$("#aName").value.trim(), pw=$("#aPass").value;
+  if(!name){ toast("Введите имя"); return; }
+  if(pw.length<4){ toast("Пароль — минимум 4 символа"); return; }
+  const users=(await sg("users",true))||{};
+  const key=name.toLowerCase();
+  if(users[key]){ toast("Это имя уже занято — войдите или выберите другое"); return; }
+  const uid=rid();
+  users[key]=uid;
+  await ss("users",users,true);
+  await ss("acc_"+uid,{name,pass:hashPw(pw),subs:[]},true);
+  session={uid,name};
+  await ss("session",session);
+  toast("Кабинет создан!");
+  goCabinet();
+}
+async function doLogin(){
+  const name=$("#aName").value.trim(), pw=$("#aPass").value;
+  if(!name||!pw){ toast("Введите имя и пароль"); return; }
+  const users=(await sg("users",true))||{};
+  const uid=users[name.toLowerCase()];
+  if(!uid){ toast("Кабинет с таким именем не найден"); return; }
+  const acc=await sg("acc_"+uid,true);
+  if(!acc||acc.pass!==hashPw(pw)){ toast("Неверный пароль"); return; }
+  session={uid,name:acc.name};
+  await ss("session",session);
+  goCabinet();
+}
+async function logout(){
+  if(draft) await ss("draft",draft);
+  await sd("session");
+  session=null; adminOK=false;
+  toast("Вы вышли из кабинета");
+  renderAuth();
+}
+
+/* =====================================================================
+   ЛИЧНЫЙ КАБИНЕТ
+   ===================================================================== */
+async function goCabinet(){
+  if(!session) return renderAuth();
+  if(draft) await ss("draft",draft);
+  app().innerHTML=`<div class="notice-dark">Загружаем ваш кабинет…</div>`;
+  const [acc,idx,dr]=await Promise.all([sg("acc_"+session.uid,true),sg("idx",true),sg("draft")]);
+  draft=(dr&&dr._uid===session.uid)?dr:null;
+  const my=((acc&&acc.subs)||[]).map(id=>(idx||[]).find(e=>e.id===id)).filter(Boolean);
+  let rows="";
+  if(!my.length) rows=`<p class="hint">Пока нет отправленных анкет. Создайте первую — и она появится здесь со статусом.</p>`;
+  else my.sort((a,b)=>b.ts-a.ts).forEach(e=>{
+    rows+=`<div class="subrow">
+      <div class="who"><b>${esc(e.char)}</b><span class="dt">отправлена ${fmtDT(e.ts)}</span></div>
+      <span class="badge ${e.status==="в работе"?"work":esc(e.status)}">${esc(e.status)}</span>
+      ${e.card?`<span class="cardflag yes">✦ карточка готова</span>`:""}
+      <button class="btn dark sm" onclick="userSubView('${e.id}')">Открыть</button>
+      ${e.status==="в работе"||e.status==="готова"?"":`<button class="btn ghost sm" onclick="userDelete('${e.id}')">Удалить</button>`}
+    </div>`;
+  });
+  app().innerHTML=`
+    <div class="parch">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">
+        <h2>Кабинет — ${esc(session.name)}</h2>
+        <button class="btn ghost sm" onclick="logout()">Выйти</button>
+      </div>
+      <div class="card-list mt8">${rows}</div>
+      <div class="mt20" style="display:flex;gap:12px;flex-wrap:wrap">
+        ${draft?`<button class="btn gold" onclick="curStep=0;renderStep();scrollTop()">Продолжить черновик</button>
+                 <button class="btn ghost" onclick="dropDraftAndNew()">Начать новую анкету</button>`
+               :`<button class="btn gold" onclick="startNew()">＋ Создать анкету</button>`}
+      </div>
+      <p class="small mt20">Статусы: <span class="badge отправлена">отправлена</span> <span class="badge work">в работе</span> <span class="badge готова">готова</span> <span class="badge отменена">отменена</span>. Когда карточка будет готова, откройте анкету — там появится кнопка скачивания. В каждой анкете есть чат с автором.</p>
+    </div>`;
+}
+function startNew(){
+  draft={_uid:session.uid,friends:[],vibe:[],subjects:[],abilities:[],details:[],ph:{}};
+  curStep=0; ss("draft",draft); renderStep(); scrollTop();
+}
+async function dropDraftAndNew(){
+  if(!confirm("Удалить текущий черновик и начать новую анкету?")) return;
+  const ph=(draft&&draft.ph)||{};
+  for(const slot of Object.keys(ph)) ph[slot].forEach(k=>sd(k));
+  await sd("draft"); startNew();
+}
+async function userDelete(id){
+  if(!confirm("Удалить эту анкету безвозвратно? Карточка и переписка тоже будут удалены.")) return;
+  await purgeSubmission(id);
+  const acc=await sg("acc_"+session.uid,true);
+  if(acc){ acc.subs=(acc.subs||[]).filter(x=>x!==id); await ss("acc_"+session.uid,acc,true); }
+  toast("Анкета удалена"); goCabinet();
+}
+async function purgeSubmission(id){
+  const sub=await sg("sub_"+id,true);
+  if(sub&&sub.photos) for(const p of sub.photos) await sd(p.key,true);
+  await sd("sub_"+id,true); await sd("card_"+id,true); await sd("msg_"+id,true);
+  const idx=(await sg("idx",true))||[];
+  await ss("idx",idx.filter(e=>e.id!==id),true);
+}
+
+/* =====================================================================
+   ПРОСМОТР СВОЕЙ АНКЕТЫ
+   ===================================================================== */
+async function userSubView(id){
+  app().innerHTML=`<div class="notice-dark">Открываем анкету…</div>`;
+  const [idx,sub,card]=await Promise.all([sg("idx",true),sg("sub_"+id,true),sg("card_"+id,true)]);
+  const meta=(idx||[]).find(e=>e.id===id);
+  if(!meta||!sub){ toast("Анкета не найдена (возможно, удалена)"); goCabinet(); return; }
+  const canCancel=meta.status==="отправлена"||meta.status==="в работе";
+  app().innerHTML=`
+    <div class="parch">
+      <button class="linkbtn" style="color:#6b592d" onclick="goCabinet()">← в кабинет</button>
+      <h2 class="mt8">${esc(meta.char)}</h2>
+      <p class="small">Отправлена ${fmtDT(meta.ts)} · статус: <span class="badge ${meta.status==="в работе"?"work":esc(meta.status)}">${esc(meta.status)}</span></p>
+      ${card&&card.data?`
+        <h2 class="mt20" style="font-size:22px">Ваша карточка готова! ✦</h2>
+        <img class="cardimg" src="${card.data}" alt="карточка персонажа">
+        <div class="center">
+          <a class="btn gold" download="Карточка_${esc(meta.char)}.jpg" href="${card.data}">Скачать карточку</a>
+          <p class="small mt8" style="font-style:italic">Если скачивание не сработало — нажмите на картинку правой кнопкой (или удерживайте на телефоне) и выберите «Сохранить изображение».</p>
+        </div>`
+      :`<p class="hint mt">${meta.status==="отменена"?"Заявка отменена.":"Карточка ещё в работе — как только автор её загрузит, здесь появится кнопка скачивания."}</p>
+        <div class="donate">
+          <div style="font-size:18px">${DONATE_PHRASE}</div>
+          <a class="btn gold mt" href="${DONATE_URL}" target="_blank" rel="noopener">Поддержать автора</a>
+        </div>`}
+      <div class="mt20" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+        <button class="btn ghost sm" onclick="dlMyText('${id}')">Моя анкета</button>
+        ${canCancel?`<button class="btn ghost sm" onclick="cancelSub('${id}')">Отменить заявку</button>`:""}
+        ${meta.status==="в работе"||meta.status==="готова"?"":`<button class="btn danger sm" onclick="userDelete('${id}')">Удалить анкету</button>`}
+      </div>
+      <h2 class="mt20" style="font-size:22px">Сообщение автору</h2>
+      <div class="chat" id="chatbox"></div>
+      <div class="chatrow">
+        <input class="in" id="chatinp" placeholder="Напишите автору…" onkeydown="if(event.key==='Enter')sendMsg('${id}','user')">
+        <button class="btn dark" onclick="sendMsg('${id}','user')">Отправить</button>
+        <button class="btn ghost" title="Обновить" onclick="renderChat('${id}','user')">⟳</button>
+      </div>
+    </div>`;
+  renderChat(id,"user");
+}
+async function dlMyText(id){
+  const [sub,idx]=await Promise.all([sg("sub_"+id,true),sg("idx",true)]);
+  const meta=(idx||[]).find(e=>e.id===id);
+  if(sub) showTextModal("Анкета — "+(meta?meta.char:""), buildText(sub,meta), "Анкета_"+(meta?meta.char:"персонаж")+".txt");
+}
+async function cancelSub(id){
+  if(!confirm("Отменить заявку? Автор увидит статус «отменена».")) return;
+  const idx=(await sg("idx",true))||[];
+  const e=idx.find(x=>x.id===id); if(e){ e.status="отменена"; await ss("idx",idx,true); }
+  userSubView(id);
+}
+
+/* =====================================================================
+   ЧАТ
+   ===================================================================== */
+async function renderChat(id, viewer){
+  const box=$("#chatbox"); if(!box) return;
+  const msgs=(await sg("msg_"+id,true))||[];
+  if(!msgs.length){ box.innerHTML=`<div class="small" style="font-style:italic">Сообщений пока нет.</div>`; return; }
+  box.innerHTML=msgs.map(m=>{
+    const mine=m.from===viewer;
+    const who=m.from==="admin"?"Автор":"Заказчик";
+    return `<div class="msg ${mine?"mine":m.from}"><b>${who}:</b> ${esc(m.text)}<span class="mt">${fmtDT(m.ts)}</span></div>`;
+  }).join("");
+  box.scrollTop=box.scrollHeight;
+}
+async function sendMsg(id, from){
+  const inp=$("#chatinp"); const text=inp.value.trim(); if(!text) return;
+  inp.value="";
+  const msgs=(await sg("msg_"+id,true))||[];
+  msgs.push({from,text,ts:Date.now()});
+  await ss("msg_"+id,msgs,true);
+  renderChat(id,from);
+}
+
+/* =====================================================================
+   АДМИНКА
+   ===================================================================== */
+function renderAdminLogin(){
+  app().innerHTML=`<div class="parch center">
+    <h2 style="justify-content:center">Вход для автора</h2>
+    <input class="in" id="apass" type="password" placeholder="Пароль" style="max-width:300px" onkeydown="if(event.key==='Enter')adminLogin()">
+    <div class="mt20">
+      <button class="btn gold" onclick="adminLogin()">Alohomora!</button>
+      <button class="btn ghost" onclick="init()">Назад</button>
+    </div>
+  </div>`;
+}
+function adminLogin(){
+  if($("#apass").value===ADMIN_PASS){ adminOK=true; adminView(); }
+  else toast("Неверный пароль");
+}
+async function adminView(){
+  if(!adminOK) return renderAdminLogin();
+  app().innerHTML=`<div class="notice-dark">Открываем архив Хогвартса…</div>`;
+  const idx=(await sg("idx",true))||[];
+  let rows="";
+  if(!idx.length) rows=`<p class="hint">Заявок пока нет.</p>`;
+  else idx.slice().sort((a,b)=>b.ts-a.ts).forEach(e=>{
+    rows+=`<div class="subrow">
+      <div class="who"><b>${esc(e.char)}</b><span class="dt">от ${esc(e.user)} · отправлена ${fmtDT(e.ts)}</span></div>
+      <select class="sel" onchange="setStatus('${e.id}',this.value)">
+        ${["отправлена","в работе","готова","отменена"].map(s=>`<option ${e.status===s?"selected":""}>${s}</option>`).join("")}
+      </select>
+      <span class="cardflag ${e.card?"yes":""}">${e.card?"✦ карточка загружена":"— карточки нет"}</span>
+      <button class="btn dark sm" onclick="adminDetail('${e.id}')">Открыть</button>
+      <button class="btn danger sm" onclick="adminDelete('${e.id}')">Удалить</button>
+    </div>`;
+  });
+  app().innerHTML=`
+    <div class="parch">
+      <h2>Кабинет автора</h2>
+      <p class="small">Всего заявок: ${idx.length}. Время отправки фиксируется автоматически.</p>
+      <div class="card-list mt8">${rows}</div>
+      <div class="mt20" style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn ghost" onclick="showPrompt()">Промт для ChatGPT</button>
+        <button class="btn ghost" onclick="adminView()">⟳ Обновить</button>
+        <button class="linkbtn" style="color:#6b592d" onclick="adminOK=false;init()">выйти</button>
+      </div>
+    </div>`;
+}
+async function setStatus(id,status){
+  const idx=(await sg("idx",true))||[];
+  const e=idx.find(x=>x.id===id); if(e){ e.status=status; await ss("idx",idx,true); toast("Статус: "+status); }
+}
+async function adminDelete(id){
+  if(!confirm("Удалить заявку целиком (анкета, фото, карточка, чат)?")) return;
+  await purgeSubmission(id); toast("Удалено"); adminView();
+}
+function showPrompt(){
+  showTextModal("Промт для ChatGPT", PROMPT_TEXT, "Промт_для_ChatGPT.txt");
+}
+async function adminDetail(id){
+  app().innerHTML=`<div class="notice-dark">Достаём свиток…</div>`;
+  const [idx,sub,card]=await Promise.all([sg("idx",true),sg("sub_"+id,true),sg("card_"+id,true)]);
+  const meta=(idx||[]).find(e=>e.id===id);
+  if(!meta||!sub){ toast("Заявка не найдена"); adminView(); return; }
+  const d=sub.data;
+  const P=(lab,val)=>{ const v=(val==null)?"":String(val).trim(); return v?`<p><b>${lab}:</b> ${esc(v)}</p>`:""; };
+  const S=(title,inner)=>inner.trim()?`<div class="ansec"><h3>${title}</h3>${inner}</div>`:"";
+  const fam=d.family||{};
+  const secs=
+    S("1 · Основная информация",P("Имя",d.name)+P("Возраст",d.age)+P("Курс",d.course)+P("Пол",d.gender))+
+    S("2 · Внешность",P("Волосы",CV(d.hair,d.hairO))+P("Глаза",CV(d.eyes,d.eyesO))+P("Телосложение",CV(d.build,d.buildO))+P("Рост",d.height)+P("Особые черты",d.features)+P("Стиль одежды",d.style)+P("Атмосфера",CV(d.vibe,d.vibeO)))+
+    S("3 · Факультет",P("Факультет",d.faculty)+P("Почему",d.facultyWhy))+
+    S("4 · Палочка",P("Выбор",d.wandChoice)+P("Дерево",CV(d.wandWood,d.wandWoodO))+P("Сердцевина",CV(d.wandCore,d.wandCoreO))+P("Длина",CV(d.wandLen,d.wandLenO))+P("Гибкость",CV(d.wandFlex,d.wandFlexO)))+
+    S("5 · Патронус",P("Выбор",d.patronusChoice)+P("Патронус",CV(d.patronus,d.patronusO))+P("Почему",d.patronusWhy))+
+    S("6 · Магическое существо",P("Существо",CV(d.creature,d.creatureO))+P("Почему",d.creatureWhy))+
+    S("7 · Питомцы",P("Есть питомец",d.hasPet)+P("Имя",d.petName)+P("Вид",d.petKind)+P("В магический мир",d.petMagic)+P("Кем будет",d.petMagicWho))+
+    S("8 · Семья",P("Происхождение",d.origin)+P("Отец",fam.father)+P("Мать",fam.mother)+P("Братья/сёстры",fam.siblings)+P("Родство с известными магами",CV(d.kinMages,d.kinMagesO))+P("Маги в роду",fam.mages))+
+    S("9 · Друзья",(d.friends||[]).map((fr,i)=>fr.name||fr.desc?`<p><b>Друг ${i+1}:</b> ${esc(fr.name||"—")}${fr.desc?" — "+esc(fr.desc):""}</p>`:"").join(""))+
+    S("10 · Романтика",P("Статус",d.romance)+P("Описание",d.romanceDesc)+P("Кого добавить",d.romanceWho))+
+    S("11 · Предметы",P("Любимые",CV(d.subjects,d.subjectsO)))+
+    S("12 · Хобби",P("В жизни",CV(d.hobbies,d.hobbiesO))+P("Магическое хобби",CV(d.magicHobby,d.magicHobbyO,d.hobbiesMagic)))+
+    S("13 · Еда и напиток",P("Еда",CV(d.food,d.foodO))+P("Напиток",CV(d.drink,d.drinkO)))+
+    S("14 · Отдых",P("После занятий",CV(d.rest,d.restO))+P("Любимое место",CV(d.place,d.placeO)))+
+    S("15 · Способности",P("Способности",CV(d.abilities,d.abilitiesO)))+
+    S("16 · Время года",P("Сезон",d.season)+P("Почему",d.seasonWhy))+
+    S("17 · Личная история",P("Завязка",d.storyHook)+P("История",d.story))+
+    S("18–19 · Оформление",P("Стиль карточки",CV(d.cardStyle,d.cardStyleO))+P("Элементы",CV(d.details))+P("Особые предметы",d.detailsSpecial))+
+    S("20 · Ещё важно",P("Детали",d.extra)+P("Пожелания",d.wishes));
+  app().innerHTML=`
+    <div class="parch">
+      <button class="linkbtn" style="color:#6b592d" onclick="adminView()">← ко всем заявкам</button>
+      <h2 class="mt8">${esc(meta.char)}</h2>
+      <p class="small">От <b>${esc(meta.user)}</b> · отправлена <b>${fmtDT(meta.ts)}</b> · статус:
+        <select class="sel" onchange="setStatus('${id}',this.value)">
+          ${["отправлена","в работе","готова","отменена"].map(s=>`<option ${meta.status===s?"selected":""}>${s}</option>`).join("")}
+        </select>
+      </p>
+      <div class="mt8" style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn gold" onclick="admCopyAll('${id}')">Скопировать анкету + промт</button>
+        <button class="btn dark" onclick="admDlText('${id}')">Анкета текстом / .txt</button>
+        <button class="btn danger" onclick="adminDelete('${id}')">Удалить заявку</button>
+      </div>
+      <h2 class="mt20" style="font-size:22px">Фотографии (${(sub.photos||[]).length})</h2>
+      <div class="gallery" id="gal">${(sub.photos||[]).length?"":"<p class='small'>Фото не приложены.</p>"}</div>
+      <h2 style="font-size:22px">Карточка персонажа</h2>
+      ${card&&card.data?`<img class="cardimg" src="${card.data}" style="max-width:340px" alt="карточка">
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a class="btn ghost sm" download="Карточка_${esc(meta.char)}.jpg" href="${card.data}">Скачать</a>
+          <label class="btn dark sm" style="cursor:pointer">Заменить карточку<input type="file" accept="image/*" hidden onchange="uploadCard(event,'${id}')"></label>
+        </div>`
+      :`<p class="hint">Карточка ещё не загружена. После загрузки статус автоматически станет «готова», и заказчик сможет её скачать.</p>
+        <label class="btn gold" style="cursor:pointer">Загрузить карточку<input type="file" accept="image/*" hidden onchange="uploadCard(event,'${id}')"></label>`}
+      <h2 class="mt20" style="font-size:22px">Анкета (только заполненное)</h2>
+      ${secs}
+      <h2 class="mt20" style="font-size:22px">Переписка с заказчиком</h2>
+      <div class="chat" id="chatbox"></div>
+      <div class="chatrow">
+        <input class="in" id="chatinp" placeholder="Сообщение заказчику…" onkeydown="if(event.key==='Enter')sendMsg('${id}','admin')">
+        <button class="btn dark" onclick="sendMsg('${id}','admin')">Отправить</button>
+        <button class="btn ghost" title="Обновить" onclick="renderChat('${id}','admin')">⟳</button>
+      </div>
+    </div>`;
+  renderChat(id,"admin");
+  const gal=$("#gal");
+  (sub.photos||[]).forEach(async (p,i)=>{
+    const v=await sg(p.key,true);
+    if(v&&v.data){
+      const fig=document.createElement("figure");
+      fig.innerHTML=`<img src="${v.data}" alt=""><figcaption>${esc(p.label||p.slot)}<br><a download="${esc(meta.char)}_${i+1}.jpg" href="${v.data}">скачать</a></figcaption>`;
+      gal.appendChild(fig);
+    }
+  });
+}
+async function admDlText(id){
+  const [sub,idx]=await Promise.all([sg("sub_"+id,true),sg("idx",true)]);
+  const meta=(idx||[]).find(e=>e.id===id);
+  if(sub) showTextModal("Анкета — "+(meta?meta.char:""), buildText(sub,meta), "Анкета_"+(meta?meta.char:"персонаж")+".txt");
+}
+async function admCopyAll(id){
+  const [sub,idx]=await Promise.all([sg("sub_"+id,true),sg("idx",true)]);
+  const meta=(idx||[]).find(e=>e.id===id);
+  if(!sub) return;
+  const text=PROMPT_TEXT.replace("[вставьте сюда скачанную анкету]","\n"+buildText(sub,meta));
+  copyText(text);
+}
+async function uploadCard(ev,id){
+  const f=ev.target.files[0]; if(!f) return;
+  toast("Загружаем карточку…");
+  try{
+    const data=await compressImage(f,1600,0.87);
+    await ss("card_"+id,{data,ts:Date.now()},true);
+    const idx=(await sg("idx",true))||[];
+    const e=idx.find(x=>x.id===id);
+    if(e){ e.card=true; e.status="готова"; await ss("idx",idx,true); }
+    toast("Карточка загружена — статус «готова»");
+    adminDetail(id);
+  }catch(err){ toast("Не удалось загрузить изображение"); }
+}
+
+/* =====================================================================
+   СТАРТ
+   ===================================================================== */
+async function init(){
+  if(!hasStorage){
+    app().innerHTML=`<div class="parch"><h2>Хранилище недоступно</h2>
+      <p class="hint">Откройте это приложение внутри Claude (как артефакт) — тогда анкеты, фото и карточки будут сохраняться между сеансами.</p></div>`;
+    return;
+  }
+  session=await sg("session");
+  if(!session){ renderAuth(); return; }
+  const dr=await sg("draft");
+  draft=(dr&&dr._uid===session.uid)?dr:null;
+  goCabinet();
+}
+init();
+</script>
+</body>
+</html>
