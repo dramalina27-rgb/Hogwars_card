@@ -173,6 +173,10 @@ select.sel{font-family:inherit;font-size:16px;padding:6px 10px;border:1px solid 
 .tab:first-child{border-radius:6px 0 0 6px}
 .tab:last-child{border-radius:0 6px 6px 0;border-left:none}
 .tab.on{background:#4a3a17;color:#f3e8c8;border-color:#4a3a17}
+.pwwrap{position:relative}
+.pwwrap .in{padding-right:46px}
+.eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:19px;opacity:.55;padding:4px}
+.eye:hover{opacity:.9}
 .authform{max-width:360px;margin:0 auto;text-align:left}
 .overlay{position:fixed;inset:0;background:rgba(5,8,18,.75);z-index:100;display:flex;align-items:flex-start;justify-content:center;padding:30px 12px;overflow-y:auto}
 .modal{max-width:720px;width:100%}
@@ -249,9 +253,10 @@ async function ensureSupabase(){
   for(const u of cdns){ try{ await loadScript(u); if(window.supabase) return true; }catch(e){} }
   return false;
 }
+function h32(s,seed){ let h=seed>>>0; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619)>>>0; } return h.toString(16).padStart(8,"0"); }
 function emailFor(name){
-  const b=new TextEncoder().encode(name.trim().toLowerCase());
-  return "u"+[...b].map(x=>x.toString(16).padStart(2,"0")).join("")+"@anketa.local";
+  const n=name.trim().toLowerCase().replace(/\s+/g," ");
+  return "u"+h32(n,2166136261)+h32(n,5381)+"@anketa.local";
 }
 function pubUrl(path){ return sb.storage.from("photos").getPublicUrl(path).data.publicUrl; }
 
@@ -297,6 +302,31 @@ function showTextModal(title, text, filename){
   </div>`;
 }
 function closeModal(){ $("#modalHost").innerHTML=""; }
+// поле пароля с «глазком»
+function pwField(id, ph, onEnter, style=""){
+  return `<div class="pwwrap" ${style?`style="${style}"`:""}>
+    <input class="in" id="${id}" type="password" placeholder="${esc(ph)}" onkeydown="if(event.key==='Enter'){${onEnter}}">
+    <button type="button" class="eye" title="Показать пароль" onclick="togglePw('${id}',this)">👁</button>
+  </div>`;
+}
+function togglePw(id,btn){
+  const inp=document.getElementById(id);
+  inp.type = inp.type==="password" ? "text" : "password";
+  btn.style.opacity = inp.type==="password" ? ".55" : "1";
+}
+// скачивание файла по ссылке с присвоенным именем
+async function dlFile(url,name){
+  try{
+    toast("Скачиваем…");
+    const r=await fetch(url); if(!r.ok) throw new Error();
+    const b=await r.blob();
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(b); a.download=name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+  }catch(e){ window.open(url,"_blank"); }
+}
+function safeName(s){ return String(s).replace(/[^\wа-яА-ЯёЁ.\-]+/g,"_"); }
 function compressImage(file, maxSide=900, q=0.8){
   return new Promise((res,rej)=>{
     const r=new FileReader();
@@ -574,6 +604,7 @@ const STEPS=[
   <div class="quote">«Не сила делает мага великим, а выбор, который он делает»</div>
   <div class="hint center">Проверьте анкету — кнопками «Назад» можно вернуться к любому шагу. После отправки анкета попадёт к автору.</div>
   ${fa("Пожелания к карточке","wishes","цвета, настроение, особые просьбы…",3)}
+  ${fi("Контакт для связи (по желанию)","contact","Telegram, VK или телефон — чтобы автор мог написать вам")}
   <div class="center mt20">
     <button class="seal" id="sealBtn" onclick="submitDraft()">Отправить<br>анкету<small>сургучная печать</small></button>
   </div>
@@ -720,7 +751,7 @@ function buildText(sub){
   sec("17. Личная история",[ ln("Завязка",d.storyHook), ln("История",d.story) ]);
   sec("18. Атмосфера карточки",[ ln("Стиль",CV(d.cardStyle,d.cardStyleO)) ]);
   sec("19. Детали оформления",[ ln("Обязательные элементы",CV(d.details)), ln("Особые предметы",d.detailsSpecial) ]);
-  sec("Пожелания",[ ln("Пожелания к карточке",d.wishes) ]);
+  sec("Пожелания и контакт",[ ln("Пожелания к карточке",d.wishes), ln("Контакт для связи",d.contact) ]);
   return out.join("\n");
 }
 
@@ -738,7 +769,7 @@ function renderAuth(){
       <label class="fl">Имя (логин)</label>
       <input class="in" id="aName" placeholder="Ваше имя или ник" onkeydown="if(event.key==='Enter')document.getElementById('aPass').focus()">
       <label class="fl">Пароль</label>
-      <input class="in" id="aPass" type="password" placeholder="${isLogin?"Ваш пароль":"Придумайте пароль (минимум 6 символов)"}" onkeydown="if(event.key==='Enter')${isLogin?"doLogin()":"doRegister()"}">
+      ${pwField("aPass", isLogin?"Ваш пароль":"Придумайте пароль (минимум 6 символов)", isLogin?"doLogin()":"doRegister()")}
       ${isLogin?"":`<p class="small mt8" style="font-style:italic">Не используйте пароль от почты или банка. Запомните имя и пароль — они понадобятся, чтобы забрать готовую карточку.</p>`}
     </div>
     <div class="mt20">
@@ -780,7 +811,10 @@ async function doLogin(){
   const {data,error}=await sb.auth.signInWithPassword({email:emailFor(name),password:pw});
   if(error){
     $("#authBtn").disabled=false;
-    toast("Неверное имя или пароль"); return;
+    if(/not confirmed/i.test(error.message)) toast("Аккаунт не подтверждён: в Supabase нужно выключить Confirm email и зарегистрироваться заново");
+    else if(/invalid/i.test(error.message)) toast("Неверное имя или пароль");
+    else toast("Ошибка входа: "+error.message);
+    return;
   }
   me={uid:data.session.user.id,name:data.session.user.user_metadata.display_name||name,email:data.session.user.email};
   loadDraft(); goCabinet();
@@ -864,7 +898,7 @@ async function userSubView(id){
   app().innerHTML=`<div class="notice-dark">Открываем анкету…</div>`;
   const {data:sub,error}=await sb.from("submissions").select("*").eq("id",id).single();
   if(error||!sub){ toast("Анкета не найдена (возможно, удалена)"); goCabinet(); return; }
-  const canCancel=sub.status==="отправлена"||sub.status==="в работе";
+  const canCancel=sub.status==="отправлена";
   const cardUrl=sub.card_path?pubUrl(sub.card_path):null;
   app().innerHTML=`
     <div class="parch">
@@ -875,7 +909,7 @@ async function userSubView(id){
         <h2 class="mt20" style="font-size:22px">Ваша карточка готова! ✦</h2>
         <img class="cardimg" src="${cardUrl}" alt="карточка персонажа">
         <div class="center">
-          <a class="btn gold" href="${cardUrl}" target="_blank" rel="noopener" download="Карточка_${esc(sub.char_name)}.jpg">Скачать карточку</a>
+          <button class="btn gold" onclick="dlFile('${cardUrl}','${safeName("Карточка_"+sub.char_name)}.jpg')">Скачать карточку</button>
           <p class="small mt8" style="font-style:italic">Если скачивание не началось — нажмите на картинку правой кнопкой (или удерживайте на телефоне) и выберите «Сохранить изображение».</p>
         </div>`
       :`<p class="hint mt">${sub.status==="отменена"?"Заявка отменена.":"Карточка ещё в работе — как только автор её загрузит, здесь появится кнопка скачивания."}</p>
@@ -884,7 +918,7 @@ async function userSubView(id){
           <a class="btn gold mt" href="${DONATE_URL}" target="_blank" rel="noopener">Поддержать автора</a>
         </div>`}
       <div class="mt20" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
-        <button class="btn ghost sm" onclick="dlMyText('${id}')">Моя анкета</button>
+        ${sub.status==="готова"?`<button class="btn ghost sm" onclick="dlMyText('${id}')">Моя анкета</button>`:""}
         ${canCancel?`<button class="btn ghost sm" onclick="cancelSub('${id}')">Отменить заявку</button>`:""}
         ${sub.status==="в работе"||sub.status==="готова"?"":`<button class="btn danger sm" onclick="userDelete('${id}')">Удалить анкету</button>`}
       </div>
@@ -938,7 +972,7 @@ function renderAdminLogin(){
   app().innerHTML=`<div class="parch center">
     <h2 style="justify-content:center">Вход для автора</h2>
     <p class="hint">Самый первый вход задаёт пароль автора навсегда — вводите внимательно.</p>
-    <input class="in" id="apass" type="password" placeholder="Пароль автора" style="max-width:300px" onkeydown="if(event.key==='Enter')adminLogin()">
+    ${pwField("apass","Пароль автора","adminLogin()","max-width:300px;margin:0 auto")}
     <div class="mt20">
       <button class="btn gold" onclick="adminLogin()">Alohomora!</button>
       <button class="btn ghost" onclick="renderAuth()">Назад</button>
@@ -1027,11 +1061,14 @@ async function adminDetail(id){
     S("16 · Время года",P("Сезон",d.season)+P("Почему",d.seasonWhy))+
     S("17 · Личная история",P("Завязка",d.storyHook)+P("История",d.story))+
     S("18–19 · Оформление",P("Стиль карточки",CV(d.cardStyle,d.cardStyleO))+P("Элементы",CV(d.details))+P("Особые предметы",d.detailsSpecial))+
-    S("Пожелания",P("Пожелания",d.wishes));
+    S("Пожелания и контакт",P("Пожелания",d.wishes)+P("Контакт для связи",d.contact));
   const cardUrl=sub.card_path?pubUrl(sub.card_path):null;
-  const gal=(sub.photos||[]).map((p,i)=>`
-    <figure><img src="${esc(p.url||pubUrl(p.path))}" alt="">
-    <figcaption>${esc(p.label||p.slot)}<br><a href="${esc(p.url||pubUrl(p.path))}" target="_blank" rel="noopener" download="${esc(sub.char_name)}_${i+1}.jpg">открыть / скачать</a></figcaption></figure>`).join("");
+  const gal=(sub.photos||[]).map((p,i)=>{
+    const u=p.url||pubUrl(p.path);
+    const fn=safeName(sub.char_name+"_"+(i+1)+"_"+(p.label||p.slot))+".jpg";
+    return `<figure><img src="${esc(u)}" alt="">
+    <figcaption>${i+1}. ${esc(p.label||p.slot)}<br><a href="#" onclick="dlFile('${esc(u)}','${esc(fn)}');return false">скачать</a></figcaption></figure>`;
+  }).join("");
   app().innerHTML=`
     <div class="parch">
       <button class="linkbtn" style="color:#6b592d" onclick="adminView()">← ко всем заявкам</button>
@@ -1051,7 +1088,7 @@ async function adminDetail(id){
       <h2 style="font-size:22px">Карточка персонажа</h2>
       ${cardUrl?`<img class="cardimg" src="${cardUrl}" style="max-width:340px" alt="карточка">
         <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <a class="btn ghost sm" href="${cardUrl}" target="_blank" rel="noopener">Открыть</a>
+          <button class="btn ghost sm" onclick="dlFile('${cardUrl}','${safeName("Карточка_"+sub.char_name)}.jpg')">Скачать</button>
           <label class="btn dark sm" style="cursor:pointer">Заменить карточку<input type="file" accept="image/*" hidden onchange="uploadCard(event,'${id}')"></label>
         </div>`
       :`<p class="hint">Карточка ещё не загружена. После загрузки статус автоматически станет «готова», и заказчик сможет её скачать.</p>
